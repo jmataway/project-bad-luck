@@ -1,0 +1,35 @@
+[
+  {
+    "id": "bruxa",
+    "name": "Bruxa",
+    "class": "Shadow",
+    "description": "A mysterious shadow warrior from the depths.",
+    "hit_points": 50,
+    "basic_attack": {
+      "name": "Shadow Strike",
+      "damage": 10
+    },
+    "special_attack": {
+      "name": "Soul Rend",
+      "damage": 22,
+      "condition": "cooldown",
+      "condition_length": 3
+    },
+    "animations": {
+      "idle": "assets/characters/bruxa/bruxa-stand-sheet.png",
+      "run": "assets/characters/bruxa/bruxa-single.png",
+      "attack": "assets/characters/bruxa/bruxa-attack-sheet.png",
+      "special": "assets/characters/bruxa/bruxa-attack-sheet.png"
+    },
+    "sprite_config": {
+      "scale": 3.0,
+      "anim_speed": 0.1,
+      "states": {
+        "idle": { "sw": 200, "sh": 100, "cols": 2, "frames": 4 },
+        "run": { "sw": 100, "sh": 100, "cols": 1, "frames": 1 },
+        "attack": { "sw": 200, "sh": 100, "cols": 4, "frames": 14 },
+        "special": { "sw": 200, "sh": 100, "cols": 4, "frames": 14 }
+      }
+    }
+  }
+]

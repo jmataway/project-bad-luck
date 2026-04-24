@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Scene Designer Utility</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #060a06;
+    --accent: #13ec6a;
+    --fg: #e0ffe0;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: 'Space Grotesk', sans-serif;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  #menu {
+    width: 100%;
+    padding: 10px 20px;
+    background: rgba(0, 0, 0, 0.8);
+    border-bottom: 2px solid var(--accent);
+    display: flex;
+    justify-content: space-between;
+    z-index: 10;
+  }
+  .info-panel {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+  .info-item {
+    font-size: 14px;
+  }
+  .info-value {
+    font-weight: bold;
+    color: var(--accent);
+  }
+  #canvas-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+  }
+  canvas {
+    max-width: 95vw;
+    max-height: 85vh;
+    border: 2px solid var(--accent);
+    cursor: crosshair;
+    background: #000;
+  }
+</style>
+</head>
+<body>
+  <div id="menu">
+    <div class="info-panel">
+      <div class="info-item">Mouse: <span id="mouse-coords" class="info-value">0, 0</span></div>
+      <div class="info-item">Box Start (X, Y): <span id="box-start" class="info-value">-</span></div>
+      <div class="info-item">Box Size (W x H): <span id="box-size" class="info-value">-</span></div>
+    </div>
+    <div class="info-panel">
+      <div class="info-item" style="color: #aaa;">Scenes Folder:</div>
+      <input type="file" id="folder-upload" webkitdirectory directory multiple style="color: var(--fg); font-family: inherit; font-size: 14px; max-width: 200px;" title="Select the assets/scenes folder" />
+      <select id="scene-select" style="background: var(--bg); color: var(--fg); border: 1px solid var(--accent); padding: 5px; font-family: inherit; display: none;">
+        <option value="">-- Select a scene --</option>
+      </select>
+      <button onclick="clearBox()" style="background: var(--accent); color: var(--bg); border: none; padding: 5px 10px; cursor: pointer; font-family: inherit; font-weight: bold; margin-left: 10px;">Clear Box</button>
+    </div>
+  </div>
+
+  <div id="canvas-container">
+    <canvas id="designer-canvas"></canvas>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('designer-canvas');
+    const ctx = canvas.getContext('2d');
+    
+    const uiMouse = document.getElementById('mouse-coords');
+    const uiBoxStart = document.getElementById('box-start');
+    const uiBoxSize = document.getElementById('box-size');
+    const folderUpload = document.getElementById('folder-upload');
+    const sceneSelect = document.getElementById('scene-select');
+
+    let bgImg = new Image();
+    bgImg.src = 'assets/scenes/castle-test.png';
+    let loadedFiles = {};
+    
+    let isDrawing = false;
+    let box = null;
+    let currentMouse = { x: 0, y: 0 };
+    let startCoords = { x: 0, y: 0 };
+
+    bgImg.onload = () => {
+      canvas.width = bgImg.width;
+      canvas.height = bgImg.height;
+      clearBox();
+    };
+
+    folderUpload.addEventListener('change', (e) => {
+      const files = e.target.files;
+      loadedFiles = {};
+      
+      sceneSelect.innerHTML = '<option value="">-- Select a scene --</option>';
+      
+      let foundAny = false;
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        if (file.type.startsWith('image/') || file.name.endsWith('.png') || file.name.endsWith('.jpg')) {
+          loadedFiles[file.name] = file;
+          const option = document.createElement('option');
+          option.value = file.name;
+          option.textContent = file.name;
+          sceneSelect.appendChild(option);
+          foundAny = true;
+        }
+      }
+
+      if (foundAny) {
+        folderUpload.style.display = 'none';
+        sceneSelect.style.display = 'inline-block';
+      } else {
+        alert('No image files found in the selected folder.');
+      }
+    });
+
+    sceneSelect.addEventListener('change', (e) => {
+      const filename = e.target.value;
+      if (filename && loadedFiles[filename]) {
+        const objectURL = URL.createObjectURL(loadedFiles[filename]);
+        bgImg.src = objectURL;
+      }
+    });
+
+    function getCanvasCoords(e) {
+      const rect = canvas.getBoundingClientRect();
+      const sX = canvas.width / rect.width;
+      const sY = canvas.height / rect.height;
+      return {
+        x: Math.round((e.clientX - rect.left) * sX),
+        y: Math.round((e.clientY - rect.top) * sY)
+      };
+    }
+
+    canvas.addEventListener('mousemove', (e) => {
+      currentMouse = getCanvasCoords(e);
+      uiMouse.textContent = `${currentMouse.x}, ${currentMouse.y}`;
+
+      if (isDrawing) {
+        box = {
+          x: Math.min(startCoords.x, currentMouse.x),
+          y: Math.min(startCoords.y, currentMouse.y),
+          w: Math.abs(currentMouse.x - startCoords.x),
+          h: Math.abs(currentMouse.y - startCoords.y)
+        };
+        updateBoxUI();
+      }
+    });
+
+    canvas.addEventListener('mousedown', (e) => {
+      startCoords = getCanvasCoords(e);
+      isDrawing = true;
+      box = { x: startCoords.x, y: startCoords.y, w: 0, h: 0 };
+      updateBoxUI();
+    });
+
+    canvas.addEventListener('mouseup', () => {
+      if (isDrawing) {
+        isDrawing = false;
+      }
+    });
+
+    canvas.addEventListener('mouseleave', () => {
+      if (isDrawing) {
+        isDrawing = false;
+      }
+      uiMouse.textContent = `-`;
+    });
+
+    function updateBoxUI() {
+      if (box) {
+        uiBoxStart.textContent = `${box.x}, ${box.y}`;
+        uiBoxSize.textContent = `${box.w} x ${box.h}`;
+      } else {
+        uiBoxStart.textContent = `-`;
+        uiBoxSize.textContent = `-`;
+      }
+    }
+
+    function clearBox() {
+      box = null;
+      updateBoxUI();
+    }
+    
+    window.clearBox = clearBox;
+
+    function draw() {
+      if (!bgImg.complete) return;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(bgImg, 0, 0);
+
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(currentMouse.x, 0);
+      ctx.lineTo(currentMouse.x, canvas.height);
+      ctx.moveTo(0, currentMouse.y);
+      ctx.lineTo(canvas.width, currentMouse.y);
+      ctx.stroke();
+
+      if (box) {
+        ctx.fillStyle = 'rgba(19, 236, 106, 0.3)';
+        ctx.strokeStyle = '#13ec6a';
+        ctx.lineWidth = 2;
+        ctx.fillRect(box.x, box.y, box.w, box.h);
+        ctx.strokeRect(box.x, box.y, box.w, box.h);
+
+        ctx.fillStyle = '#fff';
+        ctx.font = '16px "Space Grotesk", sans-serif';
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'bottom';
+        ctx.shadowColor = 'black';
+        ctx.shadowBlur = 4;
+        ctx.fillText(`(${box.x}, ${box.y})`, box.x, Math.max(0, box.y - 5));
+        ctx.textBaseline = 'top';
+        ctx.fillText(`${box.w}x${box.h}`, box.x + 5, box.y + 5);
+        ctx.shadowBlur = 0;
+      }
+    }
+    
+    function loop() {
+      draw();
+      requestAnimationFrame(loop);
+    }
+    loop();
+  </script>
+</body>
+</html>

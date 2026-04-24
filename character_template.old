@@ -1,0 +1,35 @@
+[
+  {
+    "id": "red_mage",
+    "name": "Red Mage",
+    "class": "Mage",
+    "description": "Battle mage that leaves healing to someone else",
+    "hit_points": 50,
+    "basic_attack": {
+      "name": "Spell",
+      "damage": 5
+    },
+    "special_attack": {
+      "name": "Fireball",
+      "damage": 12,
+      "condition": "cooldown",
+      "condition_length": 3
+    },
+    "animations": {
+      "idle": "assets/characters/red_mage/Red_Mage_Pixel_art_Movement_idle3.gif",
+      "run": "assets/characters/red_mage/Red_Mage_Pixel_art_Movement_run.gif",
+      "attack": "assets/characters/red_mage/Red_Mage_Pixel_art_2h.gif",
+      "special": "assets/characters/red_mage/Red_Mage_Pixel_art_2h_large.gif",
+      "death": "assets/characters/red_mage/Red_Mage_Pixel_art_Movement_death.gif"
+    },
+    "sprite_config": {
+      "is_gif": true,
+      "size": 384,
+      "scale": 0.5
+    },
+    "passive": {
+      "name": "",
+      "description": ""
+    }
+  }
+]
