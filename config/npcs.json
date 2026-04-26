@@ -1,0 +1,25 @@
+[
+  {
+    "id": "blacksmith",
+    "name": "Blacksmith",
+    "animations": {
+      "idle": "assets/npcs/blacksmith.png"
+    },
+    "services": ["upgrade"],
+    "available_upgrades": [
+      {"id": "hp_up", "name": "Reinforcement", "stat": "hp", "value": 3},
+      {"id": "str_up", "name": "Sharpness", "stat": "strength", "value": 3},
+      {"id": "int_up", "name": "Focus", "stat": "intelligence", "value": 3},
+      {"id": "dex_up", "name": "Balance", "stat": "dex", "value": 3},
+      {"id": "spd_up", "name": "Lightweight", "stat": "speed", "value": 3},
+      {"id": "luk_up", "name": "Charm", "stat": "luck", "value": 3}
+    ],
+    "sprite_config": {
+      "scale": 6.0,
+      "anim_speed": 0.12,
+      "states": {
+        "idle": { "sw": 96, "sh": 96, "cols": 7, "frames": 7 }
+      }
+    }
+  }
+]

@@ -2,18 +2,28 @@
   {
     "id": "bruxa",
     "name": "Bruxa",
-    "class": "Shadow",
-    "description": "A mysterious shadow warrior from the depths.",
-    "hit_points": 50,
+    "class": "mage",
+    "description": "Dark Magician Girl but not.",
+    "stats": {
+      "hp": 50,
+      "strength": 5,
+      "intelligence": 8,
+      "dex": 5,
+      "speed": 5,
+      "luck": 8
+    },
     "basic_attack": {
-      "name": "Shadow Strike",
-      "damage": 10
+      "name": "lil zap"
     },
     "special_attack": {
-      "name": "Soul Rend",
-      "damage": 22,
-      "condition": "cooldown",
-      "condition_length": 3
+      "name": "bigger zap",
+      "cooldown": 3
+    },
+    "secondary_action": {
+      "name": "Cure",
+      "type": "cure",
+      "cooldown": 4,
+      "description": "HEAL DAMAGE EQUAL TO INTELLIGENCE, 4 TURN CD"
     },
     "animations": {
       "idle": "assets/characters/bruxa/bruxa-stand-sheet.png",

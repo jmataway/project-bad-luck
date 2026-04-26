@@ -1,0 +1,74 @@
+[
+  {
+    "id": "zombie",
+    "name": "Zombie",
+    "type": "normal",
+    "description": "A slow, decaying resident of the castle.",
+    "stats": {
+      "hp": 50,
+      "strength": 8,
+      "intelligence": 1,
+      "dex": 5,
+      "speed": 5,
+      "luck": 2
+    },
+    "hitboxR": 50,
+    "worldSpeed": 120,
+    "visual_config": {
+      "idle_sprite": "",
+      "scale": 2.0,
+      "anim_speed": 0.12,
+      "states": {
+        "idle": { "sw": 64, "sh": 64, "cols": 1, "frames": 1 }
+      }
+    }
+  },
+  {
+    "id": "skeleton",
+    "name": "Skeleton",
+    "type": "mini-boss",
+    "description": "A swift but fragile pile of bones.",
+    "stats": {
+      "hp": 40,
+      "strength": 10,
+      "intelligence": 1,
+      "dex": 12,
+      "speed": 10,
+      "luck": 5
+    },
+    "hitboxR": 45,
+    "worldSpeed": 180,
+    "visual_config": {
+      "idle_sprite": "",
+      "scale": 2.0,
+      "anim_speed": 0.12,
+      "states": {
+        "idle": { "sw": 64, "sh": 64, "cols": 1, "frames": 1 }
+      }
+    }
+  },
+  {
+    "id": "witch",
+    "name": "Witch",
+    "type": "boss",
+    "description": "A swift but fragile pile of bones.",
+    "stats": {
+      "hp": 140,
+      "strength": 5,
+      "intelligence": 20,
+      "dex": 12,
+      "speed": 10,
+      "luck": 5
+    },
+    "hitboxR": 45,
+    "worldSpeed": 180,
+    "visual_config": {
+      "idle_sprite": "",
+      "scale": 2.0,
+      "anim_speed": 0.12,
+      "states": {
+        "idle": { "sw": 64, "sh": 64, "cols": 1, "frames": 1 }
+      }
+    }
+  }
+]

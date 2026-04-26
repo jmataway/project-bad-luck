@@ -1,0 +1,50 @@
+[
+  {
+    "id": "iron_sword",
+    "name": "Iron Sword",
+    "slot": "weapon",
+    "weapon_type": "sword",
+    "damage_type": "strength",
+    "modifiers": {
+      "strength": 5
+    }
+  },
+  {
+    "id": "wooden_staff",
+    "name": "Wooden Staff",
+    "slot": "weapon",
+    "weapon_type": "staff",
+    "damage_type": "intelligence",
+    "modifiers": {
+      "intelligence": 5
+    }
+  },
+  {
+    "id": "wooden_bow",
+    "name": "Wooden Bow",
+    "slot": "weapon",
+    "weapon_type": "bow",
+    "damage_type": "dex",
+    "modifiers": {
+      "dex": 5
+    }
+  },
+  {
+    "id": "leather_armor",
+    "name": "Leather Armor",
+    "slot": "armor",
+    "modifiers": {
+      "hp": 10,
+      "dex": 2
+    }
+  },
+  {
+    "id": "lucky_charm",
+    "name": "Lucky Charm",
+    "slot": "accessory",
+    "modifiers": {
+      "luck": 5,
+      "speed": 2
+    }
+  }
+]
