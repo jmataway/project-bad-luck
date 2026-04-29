@@ -7,10 +7,10 @@
     "stats": {
       "hp": 50,
       "strength": 5,
-      "intelligence": 8,
+      "intelligence": 15,
       "dex": 5,
-      "speed": 5,
-      "luck": 8
+      "speed": 10,
+      "luck": 15
     },
     "basic_attack": {
       "name": "lil zap"

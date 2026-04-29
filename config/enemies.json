@@ -15,7 +15,6 @@
     "hitboxR": 50,
     "worldSpeed": 120,
     "visual_config": {
-      "idle_sprite": "",
       "scale": 2.0,
       "anim_speed": 0.12,
       "states": {
@@ -24,50 +23,63 @@
     }
   },
   {
-    "id": "skeleton",
-    "name": "Skeleton",
+    "id": "flying_demon",
+    "name": "Flying Demon",
     "type": "mini-boss",
-    "description": "A swift but fragile pile of bones.",
+    "description": "Flying demon that sucks mostly your soul.",
     "stats": {
-      "hp": 40,
+      "hp": 100,
       "strength": 10,
-      "intelligence": 1,
-      "dex": 12,
+      "intelligence": 15,
+      "dex": 10,
       "speed": 10,
       "luck": 5
     },
     "hitboxR": 45,
     "worldSpeed": 180,
     "visual_config": {
-      "idle_sprite": "",
-      "scale": 2.0,
+      "scale": 6.0,
       "anim_speed": 0.12,
+      "facing": 1,
+      "animations": {
+        "idle": "assets/enemies/flying_demon/idle.png",
+        "attack": "assets/enemies/flying_demon/attacking.png",
+        "death": "assets/enemies/flying_demon/death.png"
+      },
       "states": {
-        "idle": { "sw": 64, "sh": 64, "cols": 1, "frames": 1 }
+        "idle": { "sw": 79, "sh": 69, "cols": 4, "frames": 4 },
+        "attack": { "sw": 79, "sh": 69, "cols": 8, "frames": 8 },
+        "death": { "sw": 79, "sh": 69, "cols": 7, "frames": 7 }
       }
     }
   },
   {
-    "id": "witch",
-    "name": "Witch",
+    "id": "executioner",
+    "name": "Executioner",
     "type": "boss",
-    "description": "A swift but fragile pile of bones.",
+    "description": "The castle's long time executioner punishing those who break the rules.",
     "stats": {
-      "hp": 140,
-      "strength": 5,
-      "intelligence": 20,
-      "dex": 12,
-      "speed": 10,
-      "luck": 5
+      "hp": 200,
+      "strength": 10,
+      "intelligence": 10,
+      "dex": 20,
+      "speed": 5,
+      "luck": 10
     },
-    "hitboxR": 45,
-    "worldSpeed": 180,
+    "hitboxR": 60,
+    "worldSpeed": 0,
     "visual_config": {
-      "idle_sprite": "",
-      "scale": 2.0,
-      "anim_speed": 0.12,
+      "scale": 6.0,
+      "anim_speed": 0.1,
+      "animations": {
+        "idle": "assets/enemies/executioner/idle.png",
+        "attack": "assets/enemies/executioner/attacking.png",
+        "death": "assets/enemies/executioner/death.png"
+      },
       "states": {
-        "idle": { "sw": 64, "sh": 64, "cols": 1, "frames": 1 }
+        "idle": { "sw": 100, "sh": 100, "cols": 5, "frames": 4 },
+        "attack": { "sw": 100, "sh": 100, "cols": 6, "frames": 13 },
+        "death": { "sw": 100, "sh": 100, "cols": 10, "frames": 20 }
       }
     }
   }

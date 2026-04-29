@@ -1,0 +1,89 @@
+[
+  {
+    "id": "winged_boots",
+    "name": "Winged Boots",
+    "icon": "assets/ui/icons/relics/unrevealed.png",
+    "options": [
+      {
+        "id": "winged_boots_a",
+        "reveal_prompt": "You value an initial burst of action",
+        "description": "Grants +20 Speed permanently",
+        "icon": "assets/ui/icons/relics/winged_boots_speed.png",
+        "effect": {
+          "type": "stat_bonus",
+          "stat": "speed",
+          "value": 20
+        }
+      },
+      {
+        "id": "winged_boots_b",
+        "reveal_prompt": "You desire an investment to pay off long term",
+        "description": "Increases your speed by 50%",
+        "icon": "assets/ui/icons/relics/winged_boots_double.png",
+        "effect": {
+          "type": "stat_multiplier",
+          "stat": "speed",
+          "multiplier": 1.5
+        }
+      }
+    ]
+  },
+  {
+    "id": "christian_brothers",
+    "name": "Christian Brothers",
+    "icon": "assets/ui/icons/relics/unrevealed.png",
+    "options": [
+      {
+        "id": "christian_brothers_a",
+        "reveal_prompt": "You will take what was your brothers for yourself",
+        "description": "Gain 30 max HP permanently",
+        "icon": "assets/ui/icons/relics/christian_brothers_bible.png",
+        "effect": {
+          "type": "stat_bonus",
+          "action": "hp",
+          "value": 30
+        }
+      },
+      {
+        "id": "christian_brothers_b",
+        "reveal_prompt": "A drunken rage fills you with might",
+        "description": "Permanently increase Strength by 15",
+        "icon": "assets/ui/icons/relics/christian_brothers_drink.png",
+        "effect": {
+          "type": "stat_bonus",
+          "stat": "strength",
+          "value": 15
+        }
+      }
+    ]
+  },
+  {
+    "id": "wrath_of_god",
+    "name": "Wrath of God",
+    "icon": "assets/ui/icons/relics/unrevealed.png",
+    "options": [
+      {
+        "id": "wrath_of_god_a",
+        "reveal_prompt": "Smite your foes from the heavens above",
+        "description": "Reset weapon stats to deal 100 damage to any enemy, 1 time use",
+        "icon": "assets/ui/icons/relics/wrath_of_god_flame.png",
+        "effect": {
+          "type": "consumable",
+          "action": "damage",
+          "value": 100
+        }
+      },
+      {
+        "id": "wrath_of_god_b",
+        "reveal_prompt": "Gain the Lords favor when using your special attack",
+        "description": "Increase your Special Damage by 30",
+        "icon": "assets/ui/icons/relics/wrath_of_god_scroll.png",
+        "effect": {
+          "type": "stat_bonus",
+          "stat": "specialDamage",
+          "value": 30
+        }
+      }
+    ]
+  }
+]
